@@ -28,7 +28,6 @@ roles = [
     // roleBuilder,
 ]
 
-var myRoom = funcs.myRoom;
 
 var maxHarvesters = 10;
 var maxUpgraders = 10;
@@ -37,6 +36,8 @@ var maxBuilders = 0;
 var maxMiners = 0;
 
 module.exports.loop = function () {
+    
+    var myRoom = funcs.myRoom;
 
     //clear memory of dead creeps
     for(var i in Memory.creeps) {
