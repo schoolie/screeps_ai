@@ -1,9 +1,9 @@
 var roleBaseWorker = require('role.baseWorker');
 var funcs = require('funcs');
 
-var roleNewHarvester = Object.assign({}, roleBaseWorker); 
+var role = Object.assign({}, roleBaseWorker); 
 
-roleNewHarvester.work = function(creep) {
+role.work = function(creep) {
     
     var targets = funcs.myRoom.find(FIND_STRUCTURES, {
             filter: (structure) => {
@@ -20,8 +20,8 @@ roleNewHarvester.work = function(creep) {
     
 }
 
-roleNewHarvester.body = [CARRY, CARRY, CARRY, WORK, WORK, MOVE, MOVE],
+role.body = [CARRY, CARRY, CARRY, WORK, WORK, MOVE, MOVE],
+role.name = 'harvester';
 
 
-
-module.exports = roleNewHarvester;
+module.exports = role;

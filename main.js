@@ -1,20 +1,34 @@
+var funcs = require('funcs');
+
 var roleHarvester = require('role.newHarvester');
 
 // var roleNewHarvester = require('role.newHarvester');
 // var roleNewUpgrader = require('role.newUpgrader');
 
-var roleBuilder = require('role.builder');
-var roleRepairer = require('role.repairer');
+// var roleBuilder = require('role.builder');
+var roleRepairer = require('role.newRepairer');
 var roleUpgrader = require('role.newUpgrader');
-var roleMiner = require('role.miner');
+// var roleMiner = require('role.miner');
 
-var roleSpawnTransporter = require('role.spawnTransporter');
+// var roleSpawnTransporter = require('role.spawnTransporter');
 
-var funcs = require('funcs');
 
+// roleMiner.max = 0
+roleHarvester.max = 10
+roleUpgrader.max = 10,
+roleRepairer.max = 5
+// roleBuilder.max = 0
+
+
+roles = [
+    // roleMiner,
+    roleHarvester,
+    roleUpgrader,
+    roleRepairer,
+    // roleBuilder,
+]
 
 var myRoom = Game.rooms['W8N3'];
-
 
 var maxHarvesters = 10;
 var maxUpgraders = 10;
@@ -41,8 +55,6 @@ module.exports.loop = function () {
     }
     
     
-    
-    
     var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
     var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
     var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
@@ -63,6 +75,10 @@ module.exports.loop = function () {
     );
     
     defBody = [WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE];
+    
+    
+    
+    
     
     // if(Game.rooms['W8N3'].energyAvailable == Game.rooms['W8N3'].energyCapacityAvailable) {
     // if(Game.spawns.Spawn1.energy == Game.spawns.Spawn1.energyCapacity) {
