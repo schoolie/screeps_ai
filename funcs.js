@@ -2,7 +2,7 @@ module.exports = {
     
     
     myRoom: Game.spawns.Spawn1.room,
-    myRoomName: Game.spawns.Spawn1.room.name
+    myRoomName: Game.spawns.Spawn1.room.name,
     
     minerLocs: [new RoomPosition(30, 20, this.myRoomName), new RoomPosition(33, 19, this.myRoomName)],
     sourceIDs: ['26f20772347f879', '71ac0772347ffe6'],
