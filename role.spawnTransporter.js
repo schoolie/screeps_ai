@@ -39,7 +39,7 @@ var roleSpawnTransporter = {
         
         
         else {
-            var targets = Game.rooms['W8N3'].find(FIND_STRUCTURES, {
+            var targets = funcs.myRoom.find(FIND_STRUCTURES, {
                     filter: (structure) => {
                         return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) &&
                             structure.energy < structure.energyCapacity;

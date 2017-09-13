@@ -28,7 +28,7 @@ roles = [
     // roleBuilder,
 ]
 
-var myRoom = Game.rooms['W8N3'];
+var myRoom = funcs.myRoom;
 
 var maxHarvesters = 10;
 var maxUpgraders = 10;
@@ -46,10 +46,10 @@ module.exports.loop = function () {
     }
     
     // Tower
-    var hostiles = Game.rooms['W8N3'].find(FIND_HOSTILE_CREEPS);
+    var hostiles = myRoom.find(FIND_HOSTILE_CREEPS);
     if(hostiles.length > 0) {
         console.log(hostiles);
-        var towers = Game.rooms['W8N3'].find(
+        var towers = myRoom.find(
             FIND_MY_STRUCTURES, {filter: {structureType: STRUCTURE_TOWER}});
         towers.forEach(tower => tower.attack(hostiles[0]));
     }
@@ -65,7 +65,7 @@ module.exports.loop = function () {
     
 
     console.log(Game.rooms['W8N3'].energyAvailable,
-        Game.rooms['W8N3'].energyCapacityAvailable,
+        myRoom.energyCapacityAvailable,
         miners.length,
         harvesters.length, 
         upgraders.length, 
@@ -78,10 +78,6 @@ module.exports.loop = function () {
     
     
     
-    
-    
-    // if(Game.rooms['W8N3'].energyAvailable == Game.rooms['W8N3'].energyCapacityAvailable) {
-    // if(Game.spawns.Spawn1.energy == Game.spawns.Spawn1.energyCapacity) {
     if (true) {    
         
         if (miners.length < maxMiners) {

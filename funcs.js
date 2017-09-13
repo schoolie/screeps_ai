@@ -1,9 +1,12 @@
 module.exports = {
     
-    minerLocs: [new RoomPosition(30, 20, 'W8N3'), new RoomPosition(33, 19, 'W8N3')],
+    
+    myRoom: Game.spawns.Spawn1.room,
+    myRoomName: Game.spawns.Spawn1.room.name
+    
+    minerLocs: [new RoomPosition(30, 20, this.myRoomName), new RoomPosition(33, 19, this.myRoomName)],
     sourceIDs: ['26f20772347f879', '71ac0772347ffe6'],
     
-    myRoom: Game.rooms['W8N3'],
 
     // FindEnergy(creep) {
     //     dropped = this.myRoom.find(FIND_DROPPED_RESOURCES);

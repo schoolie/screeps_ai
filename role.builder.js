@@ -17,7 +17,7 @@ var roleBuilder = {
 
 	    if(creep.memory.building) {
 	        
-	        var targets = Game.rooms['W8N3'].find(FIND_CONSTRUCTION_SITES);
+	        var targets = funcs.myRoom.find(FIND_CONSTRUCTION_SITES);
 	        
             if(targets.length) {
                 

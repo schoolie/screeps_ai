@@ -5,7 +5,7 @@ var role = Object.assign({}, roleBaseWorker);
 
 role.work = function(creep) {
 	        
-    var allStructures = Game.rooms['W8N3'].find(FIND_STRUCTURES)
+    var allStructures = funcs.myRoom.find(FIND_STRUCTURES)
 
     var damagedStructures = []
     var walls = []

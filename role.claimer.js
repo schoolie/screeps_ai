@@ -10,7 +10,7 @@ var roleUpgrader = {
         }
         
         else {
-            var cont = Game.getObjectById('1039077215080e1');
+            var cont = funcs.myRoom.controller;
             
             // var cont1 = Game.rooms['W8N3'].controller;
             // if(creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
