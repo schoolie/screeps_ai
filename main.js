@@ -64,7 +64,7 @@ module.exports.loop = function () {
     
     
 
-    console.log(Game.rooms['W8N3'].energyAvailable,
+    console.log(myRoom.energyAvailable,
         myRoom.energyCapacityAvailable,
         miners.length,
         harvesters.length, 
