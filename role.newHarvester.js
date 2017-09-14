@@ -20,7 +20,14 @@ role.work = function(creep) {
     
 }
 
-role.body = [CARRY, CARRY, CARRY, WORK, WORK, MOVE, MOVE],
+role.bodies = [
+    [CARRY, CARRY, CARRY, WORK, WORK, MOVE, MOVE],
+    [CARRY, CARRY, CARRY, WORK, MOVE, MOVE],
+    [CARRY, CARRY, WORK, MOVE, MOVE],
+    [CARRY, CARRY, WORK, MOVE],
+    [CARRY, WORK, MOVE],
+];
+
 role.name = 'harvester';
 
 

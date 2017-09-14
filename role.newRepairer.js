@@ -64,13 +64,15 @@ role.work = function(creep) {
         last_target = Game.getObjectById(Memory.last_target_id);
         
         // console.log(target.hits, last_target.hits);
-
-        if ((last_target.hits) < (target.hits + 90)) {
-            // console.log('kept');
-            target = last_target;
-        }
-        else {
-            // console.log('too close');
+        
+        if (last_target) {
+            if ((last_target.hits) < (target.hits + 90)) {
+                // console.log('kept');
+                target = last_target;
+            }
+            else {
+                // console.log('too close');
+            }
         }
         
     
@@ -87,6 +89,6 @@ role.work = function(creep) {
 
 }
 
-role.body = [WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE],
+role.name = 'repairer';
 
 module.exports = role;

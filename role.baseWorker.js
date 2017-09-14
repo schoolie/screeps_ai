@@ -18,11 +18,9 @@ roleBaseWorker.run = function(creep) {
         creep.say('🚧 transport');
     }
 
-
     if(!creep.memory.transporting) {
         funcs.GetEnergy(creep);
     }
-    
     
     else {
         this.work(creep);

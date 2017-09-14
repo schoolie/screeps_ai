@@ -1,43 +1,32 @@
 var funcs = require('funcs');
 
 var roleHarvester = require('role.newHarvester');
-
-// var roleNewHarvester = require('role.newHarvester');
-// var roleNewUpgrader = require('role.newUpgrader');
-
-// var roleBuilder = require('role.builder');
+var roleBuilder = require('role.newBuilder');
 var roleRepairer = require('role.newRepairer');
 var roleUpgrader = require('role.newUpgrader');
 // var roleMiner = require('role.miner');
 
-// var roleSpawnTransporter = require('role.spawnTransporter');
 
 
 // roleMiner.max = 0
 roleHarvester.max = 10
-roleUpgrader.max = 10,
+roleUpgrader.max = 10
 roleRepairer.max = 5
-// roleBuilder.max = 0
-
+roleBuilder.max = 5
 
 roles = [
     // roleMiner,
     roleHarvester,
     roleUpgrader,
     roleRepairer,
-    // roleBuilder,
+    roleBuilder,
 ]
 
 
-var maxHarvesters = 10;
-var maxUpgraders = 10;
-var maxRepairers = 5;
-var maxBuilders = 0;
-var maxMiners = 0;
-
 module.exports.loop = function () {
     
-    var myRoom = funcs.myRoom;
+    // Get Current Room
+    var myRoom = Game.rooms[funcs.myRoomName];
 
     //clear memory of dead creeps
     for(var i in Memory.creeps) {
@@ -55,95 +44,51 @@ module.exports.loop = function () {
         towers.forEach(tower => tower.attack(hostiles[0]));
     }
     
-    
-    var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
-    var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
-    var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
-    var repairers = _.filter(Game.creeps, (creep) => creep.memory.role == 'repairer');
-    var claimers = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer');
-    var miners = _.filter(Game.creeps, (creep) => creep.memory.role == 'miner');
-    
-    
-
+    // Status Console Message
     console.log(myRoom.energyAvailable,
         myRoom.energyCapacityAvailable,
-        miners.length,
-        harvesters.length, 
-        upgraders.length, 
-        repairers.length, 
-        builders.length, 
-        claimers.length
+        roles.map(function(x) {return ' ' + x.name + ': ' + x.count() + '/' + x.max})
     );
-    
-    defBody = [WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE];
-    
-    
-    
-    if (true) {    
-        
-        if (miners.length < maxMiners) {
-            spawned = Game.spawns.Spawn1.createCreep(roleMiner.body, {role:'miner', sourceNum:Memory.lastMinerID});
-            if (typeof spawned == 'string') {
-                console.log(spawned);
-                Memory.lastMinerID = (Memory.lastMinerID + 1) % 2
+
+    // Spawn Management    
+    spawned = false;
+
+    for (r in roles) {
+        role = roles[r];
+
+        count = role.count();
+
+        if (count < role.max && !spawned) {
+            
+            for (b in role.bodies) {
+
+                body = role.bodies[b];
+                spawned = Game.spawns.Spawn1.createCreep(body, {role:role.name});
+                
+                console.log('body', role.name, body, spawned);
+
+                if (typeof spawned == 'string') {
+                    console.log('spawning ' + role.name);
+                    spawned = true;
+
+                    break;
+                }
             }
-
         }
-        
-        else if (harvesters.length < maxHarvesters) {
-            Game.spawns.Spawn1.createCreep(roleHarvester.body, {role:'harvester'});
-
-        }
-        
-        else if (upgraders.length < maxUpgraders) {
-            Game.spawns.Spawn1.createCreep(defBody, {role:'upgrader'});
-        }
-        
-        else if (repairers.length < maxRepairers) {
-            Game.spawns.Spawn1.createCreep(defBody, {role:'repairer'});
-        }
-        
-        else if (builders.length < maxBuilders && myRoom.find(FIND_CONSTRUCTION_SITES).length > 0) {
-            Game.spawns.Spawn1.createCreep(defBody, {role:'builder'});
-        }
-        
-        // if (claimers.length < 1) {
-        //     Game.spawns.Spawn1.createCreep([CLAIM, WORK, CARRY, MOVE, MOVE], {role:'claimer'});
-        // }
     }
 
+
+    // Role Actions
     for(var name in Game.creeps) {
-        
-        
         
         var creep = Game.creeps[name];
 
-        if(creep.memory.role == 'harvester') {
-            roleHarvester.run(creep);
-            // roleNewHarvester.run(creep);
-            // roleSpawnTransporter.run(creep);
-        }
-        
-        if(creep.memory.role == 'builder') {
-            roleBuilder.run(creep);
-        };
-        
-        if(creep.memory.role == 'upgrader') {
-            roleUpgrader.run(creep);
-            // roleNewUpgrader.run(creep);
-        };
-        
-        if(creep.memory.role == 'repairer') {
-            roleRepairer.run(creep);
-        };
-        
-        if(creep.memory.role == 'miner') {
-            roleMiner.run(creep);
-        };
-        
-        if(creep.memory.role == 'spawnTransporter') {
-            roleSpawnTransporter.run(creep);
-        };
-        
+        for (r in roles) {
+            role = roles[r];
+
+            if(creep.memory.role == role.name) {
+                role.run(creep);
+            }
+        }        
     }
 }

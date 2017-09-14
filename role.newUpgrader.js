@@ -1,9 +1,9 @@
 var roleBaseWorker = require('role.baseWorker');
 var funcs = require('funcs');
 
-var roleNewUpgrader = Object.assign({}, roleBaseWorker); 
+var role = Object.assign({}, roleBaseWorker); 
 
-roleNewUpgrader.work = function(creep) {
+role.work = function(creep) {
     
     var cont = funcs.myRoom.controller;
     
@@ -13,6 +13,6 @@ roleNewUpgrader.work = function(creep) {
 
 }
 
-roleNewUpgrader.body = [WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE],
+role.name = 'upgrader';
 
-module.exports = roleNewUpgrader;
+module.exports = role;
