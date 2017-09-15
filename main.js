@@ -53,25 +53,31 @@ module.exports.loop = function () {
     // Spawn Management    
     spawned = false;
 
-    for (r in roles) {
+    for (var r in roles) {
         role = roles[r];
 
         count = role.count();
 
         if (count < role.max && !spawned) {
             
-            for (b in role.bodies) {
+            for (var b in role.bodies) {
 
-                body = role.bodies[b];
-                spawned = Game.spawns.Spawn1.createCreep(body, {role:role.name});
+                var body = role.bodies[b];
                 
-                console.log('body', role.name, body, spawned);
+                if (funcs.calcCost(body) <= Game.spawns.Spawn1.room.energyCapacityAvailable) {
+                    // this body is cheap enough to build
+                    var selected_body = body;
+                }
+                
+                while (!spawned) {
+                    var spawn_result = Game.spawns.Spawn1.createCreep(body, {role:role.name});
+                    
+                    console.log('body', role.name, selected_body, spawn_result);
 
-                if (typeof spawned == 'string') {
-                    console.log('spawning ' + role.name);
-                    spawned = true;
-
-                    break;
+                    if (typeof spawn_result == 'string') {
+                        console.log('spawning ' + role.name);
+                        spawned = true;
+                    }
                 }
             }
         }

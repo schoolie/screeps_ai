@@ -15,5 +15,4 @@ module.exports = {
 	    // [CARRY, CARRY, WORK, MOVE],
 	    // [CARRY, WORK, MOVE],
 	]
-
 };
