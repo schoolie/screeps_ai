@@ -14,6 +14,6 @@ module.exports = {
 	    [CARRY, CARRY, WORK, WORK, MOVE],
 	    [CARRY, WORK, WORK, MOVE],
 	    [CARRY, WORK, MOVE],
-	]
+	],
 
 };

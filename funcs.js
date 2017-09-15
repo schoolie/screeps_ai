@@ -15,7 +15,7 @@ module.exports = {
             total_cost += cost;
         }
         return total_cost;
-    }
+    },
 
     // FindEnergy(creep) {
     //     dropped = this.myRoom.find(FIND_DROPPED_RESOURCES);
