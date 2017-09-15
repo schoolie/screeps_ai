@@ -10,9 +10,10 @@ module.exports = {
 
 	bodies: [
 	    [CARRY, CARRY, CARRY, WORK, WORK, MOVE, MOVE],
-	    // [CARRY, CARRY, CARRY, WORK, MOVE, MOVE],
-	    // [CARRY, CARRY, WORK, MOVE, MOVE],
-	    // [CARRY, CARRY, WORK, MOVE],
-	    // [CARRY, WORK, MOVE],
+	    [CARRY, CARRY, CARRY, WORK, WORK, MOVE],
+	    [CARRY, CARRY, WORK, WORK, MOVE],
+	    [CARRY, WORK, WORK, MOVE],
+	    [CARRY, WORK, MOVE],
 	]
+
 };

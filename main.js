@@ -51,32 +51,39 @@ module.exports.loop = function () {
     );
 
     // Spawn Management    
-    spawned = false;
+    var spawned = false;
+    var selected = false;
 
     for (var r in roles) {
-        role = roles[r];
+        
+        if (!selected) {
 
-        count = role.count();
-
-        if (count < role.max && !spawned) {
-            
-            for (var b in role.bodies) {
-
-                var body = role.bodies[b];
+            role = roles[r];
+    
+            count = role.count();
+    
+            if (count < role.max && !spawned) {
                 
-                if (funcs.calcCost(body) <= Game.spawns.Spawn1.room.energyCapacityAvailable) {
-                    // this body is cheap enough to build
-                    var selected_body = body;
-                }
+                for (var b in role.bodies) {
+    
+                    var body = role.bodies[b];
+                    var bodyCost = funcs.calcCost(body)
+                    
+                    if (!selected && bodyCost <= Game.spawns.Spawn1.room.energyCapacityAvailable) {
+                        // this body is cheap enough to build
+                        var selected_body = body;
+                        selected = true;
+                        console.log('body', role.name, selected_body, bodyCost, spawn_result);
+
+                    }
                 
-                while (!spawned) {
                     var spawn_result = Game.spawns.Spawn1.createCreep(body, {role:role.name});
                     
-                    console.log('body', role.name, selected_body, spawn_result);
 
                     if (typeof spawn_result == 'string') {
                         console.log('spawning ' + role.name);
                         spawned = true;
+                        break;
                     }
                 }
             }
