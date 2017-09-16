@@ -4,9 +4,6 @@ module.exports = {
     myRoom: Game.spawns.Spawn1.room,
     myRoomName: Game.spawns.Spawn1.room.name,
     
-    minerLocs: [new RoomPosition(30, 20, Game.spawns.Spawn1.room.name), new RoomPosition(33, 19, Game.spawns.Spawn1.room.name)],
-    sourceIDs: ['26f20772347f879', '71ac0772347ffe6'],
-    
     calcCost: function(body) {
         total_cost = 0;
         for (p in body) {

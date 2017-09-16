@@ -1,18 +1,18 @@
 var funcs = require('funcs');
 
-var roleHarvester = require('role.newHarvester');
-var roleBuilder = require('role.newBuilder');
-var roleRepairer = require('role.newRepairer');
-var roleUpgrader = require('role.newUpgrader');
+var roleHarvester = require('role.harvester');
+var roleBuilder = require('role.builder');
+var roleRepairer = require('role.repairer');
+var roleUpgrader = require('role.upgrader');
 // var roleMiner = require('role.miner');
 
 
 
 // roleMiner.max = 0
-roleHarvester.max = 10
-roleUpgrader.max = 10
-roleRepairer.max = 5
-roleBuilder.max = 5
+roleHarvester.max = 10;
+roleUpgrader.max = 20;
+roleRepairer.max = 5;
+roleBuilder.max = 5; 
 
 roles = [
     // roleMiner,
@@ -62,7 +62,7 @@ module.exports.loop = function () {
     
             count = role.count();
     
-            if (count < role.max && !spawned) {
+            if (!spawned && role.shouldSpawn()) {
                 
                 for (var b in role.bodies) {
     
@@ -77,8 +77,7 @@ module.exports.loop = function () {
 
                     }
                 
-                    var spawn_result = Game.spawns.Spawn1.createCreep(body, {role:role.name});
-                    
+                    var spawn_result = Game.spawns.Spawn1.createCreep(selected_body, {role:role.name});
 
                     if (typeof spawn_result == 'string') {
                         console.log('spawning ' + role.name);

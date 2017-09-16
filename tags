@@ -1,0 +1,36 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+baseCreep	role.baseWorker.js	/^var baseCreep = require('role.baseCreep');$/;"	v
+bodies	role.baseCreep.js	/^    },$/;"	p	class:module.exports
+body	role.miner.js	/^var roleMiner = {$/;"	p	class:roleMiner
+body	role.spawnTransporter.js	/^var roleSpawnTransporter = {$/;"	p	class:roleSpawnTransporter
+count	role.baseCreep.js	/^    },$/;"	m	class:module.exports
+funcs	main.js	/^var funcs = require('funcs');$/;"	v
+funcs	role.baseWorker.js	/^var funcs = require('funcs');$/;"	v
+funcs	role.claimer.js	/^var funcs = require('funcs');$/;"	v
+funcs	role.miner.js	/^var funcs = require('funcs');$/;"	v
+funcs	role.newBuilder.js	/^var funcs = require('funcs');$/;"	v
+funcs	role.newHarvester.js	/^var funcs = require('funcs');$/;"	v
+funcs	role.newRepairer.js	/^var funcs = require('funcs');$/;"	v
+funcs	role.newUpgrader.js	/^var funcs = require('funcs');$/;"	v
+funcs	role.spawnTransporter.js	/^var funcs = require('funcs');$/;"	v
+getCreepsByRole	role.baseCreep.js	/^module.exports = {$/;"	m	class:module.exports
+myRoom	funcs.js	/^module.exports = {$/;"	p	class:module.exports
+role.work	role.newBuilder.js	/^var role = Object.assign({}, roleBaseWorker); $/;"	f
+role.work	role.newHarvester.js	/^var role = Object.assign({}, roleBaseWorker); $/;"	f
+role.work	role.newRepairer.js	/^var role = Object.assign({}, roleBaseWorker); $/;"	f
+role.work	role.newUpgrader.js	/^var role = Object.assign({}, roleBaseWorker); $/;"	f
+roleBaseWorker	role.newBuilder.js	/^var roleBaseWorker = require('role.baseWorker');$/;"	v
+roleBaseWorker	role.newHarvester.js	/^var roleBaseWorker = require('role.baseWorker');$/;"	v
+roleBaseWorker	role.newRepairer.js	/^var roleBaseWorker = require('role.baseWorker');$/;"	v
+roleBaseWorker	role.newUpgrader.js	/^var roleBaseWorker = require('role.baseWorker');$/;"	v
+roleBaseWorker.run	role.baseWorker.js	/^var roleBaseWorker = Object.assign({}, baseCreep); $/;"	f
+roleBuilder	main.js	/^var roleBuilder = require('role.newBuilder');$/;"	v
+roleHarvester	main.js	/^var roleHarvester = require('role.newHarvester');$/;"	v
+roleRepairer	main.js	/^var roleRepairer = require('role.newRepairer');$/;"	v
+roleUpgrader	main.js	/^var roleUpgrader = require('role.newUpgrader');$/;"	v
+run	role.claimer.js	/^var roleUpgrader = {$/;"	m	class:roleUpgrader
