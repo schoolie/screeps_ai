@@ -6,7 +6,7 @@ var role = Object.assign({}, roleBaseWorker);
 role.work = function(creep) {
 
 	        
-    var targets = funcs.myRoom.find(FIND_CONSTRUCTION_SITES);
+    var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
     
     if(targets.length) {
         

@@ -3,7 +3,7 @@ var funcs = require('funcs');
 
 var role = Object.assign({}, roleBaseWorker); 
 
-role.work = function(creep) {
+role.run = function(creep) {
     
     var myRoom = Game.rooms[funcs.myRoomName];
     var nextRoomName = Game.map.describeExits(myRoom.name)[3]

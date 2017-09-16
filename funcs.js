@@ -31,7 +31,7 @@ module.exports = {
         //     creep.moveTo(dropped);
         // }
         
-        var source = this.FindSource(creep);
+        var source = Game.getObjectById(creep.memory.sourceId);;
         if(creep.harvest(source) == ERR_NOT_IN_RANGE) {
             creep.moveTo(source);
         }

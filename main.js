@@ -13,16 +13,16 @@ var roleClaimer = require('role.claimer');
 // roleMiner.max = 0
 roleObserver.max = 1;
 roleHarvester.max = 9;
-roleUpgrader.max = 9;
-roleRepairer.max = 1;
-roleClaimer.max = 3; 
+roleUpgrader.max = 8;
+roleRepairer.max = 2;
+roleClaimer.max = 0; 
 roleBuilder.max = 5; 
 
 roles = [
     // roleMiner,
-    roleObserver,
     roleHarvester,
     roleUpgrader,
+    roleObserver,
     roleRepairer,
     roleClaimer,
     roleBuilder,

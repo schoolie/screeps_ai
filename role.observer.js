@@ -9,10 +9,16 @@ role.run = function(creep) {
     var nextRoomName = Game.map.describeExits(myRoom.name)[3]
     
     var pos = new RoomPosition(25, 25, nextRoomName);
-    creep.moveTo(pos);
+    
+    if (creep.room.name != nextRoomName) {
+        creep.moveTo(pos);
+    }
+    else {
+        creep.memory.role = 'builder';
+    }
 
 }
-role.bodies = [[MOVE]];
+role.bodies = [[WORK, WORK, CARRY, MOVE, CARRY, MOVE]];
 role.name = 'observer';
 
 module.exports = role;
