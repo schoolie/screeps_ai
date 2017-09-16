@@ -1,15 +1,19 @@
+var funcs = require('funcs');
+
 module.exports = {
 
-	getCreepsByRole: function() {
-	    return _.filter(Game.creeps, (creep) => creep.memory.role == this.name);
+	getCreepsByRole: function(room) {
+	    return _.filter(Game.creeps, (creep) => creep.memory.role == this.name && creep.room.name == room.name);
     },
 
-    count: function() {
-        return this.getCreepsByRole().length;
+    count: function(room) {
+        // console.log(room);
+        // room = funcs.myRoom;
+        return this.getCreepsByRole(room).length;
     },
     
-    shouldSpawn: function() {
-        return this.count() < this.max;
+    shouldSpawn: function(room) {
+        return this.count(room) < this.max;
     },
 
 	bodies: [

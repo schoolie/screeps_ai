@@ -65,7 +65,7 @@ module.exports.loop = function () {
         // Status Console Message
         console.log(myRoom.energyAvailable,
             myRoom.energyCapacityAvailable,
-            roles.map(function(x) {return ' ' + x.name + ': ' + x.count() + '/' + x.max})
+            roles.map(function(x) {return ' ' + x.name + ': ' + x.count(myRoom) + '/' + x.max})
         );
 
         // Spawn Management    
@@ -78,9 +78,9 @@ module.exports.loop = function () {
 
                 role = roles[r];
         
-                count = role.count();
+                count = role.count(myRoom);
         
-                if (!spawned && role.shouldSpawn()) {
+                if (!spawned && role.shouldSpawn(myRoom)) {
                     
                     for (var b in role.bodies) {
         
