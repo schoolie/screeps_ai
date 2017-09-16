@@ -32,8 +32,8 @@ role.work = function(creep) {
     }
 }
 
-role.shouldSpawn = function() {
-    return (this.count() < this.max) && (Game.rooms[funcs.myRoomName].find(FIND_CONSTRUCTION_SITES).length > 0);
+role.shouldSpawn = function(room) {
+    return (this.count(room) < this.max) && (room.find(FIND_CONSTRUCTION_SITES).length > 0);
 };
 
 role.name = 'builder';

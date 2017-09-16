@@ -11,10 +11,10 @@ var roleClaimer = require('role.claimer');
 
 
 // roleMiner.max = 0
-roleObserver.max = 1;
-roleHarvester.max = 9;
-roleUpgrader.max = 8;
-roleRepairer.max = 2;
+roleObserver.max = 0;
+roleHarvester.max = 7;
+roleUpgrader.max = 7;
+roleRepairer.max = 0;
 roleClaimer.max = 0; 
 roleBuilder.max = 5; 
 
@@ -38,13 +38,10 @@ module.exports.loop = function () {
             myRooms.push(Game.spawns[s].room);
         }
     }
-    console.log(myRooms);
 
     for (r in myRooms) {
         // Get Current Room
         var myRoom = myRooms[r];
-        // var myRoom = Game.rooms[funcs.myRoomName];
-        
         
         //clear memory of dead creeps
         for(var i in Memory.creeps) {
@@ -63,7 +60,8 @@ module.exports.loop = function () {
         }
         
         // Status Console Message
-        console.log(myRoom.energyAvailable,
+        console.log(myRoom.name,
+            myRoom.energyAvailable,
             myRoom.energyCapacityAvailable,
             roles.map(function(x) {return ' ' + x.name + ': ' + x.count(myRoom) + '/' + x.max})
         );
@@ -87,18 +85,18 @@ module.exports.loop = function () {
                         var body = role.bodies[b];
                         var bodyCost = funcs.calcCost(body)
                         
-                        if (!selected && bodyCost <= Game.spawns.Spawn1.room.energyCapacityAvailable) {
+                        if (!selected && bodyCost <= myRoom.energyCapacityAvailable) {
                             // this body is cheap enough to build
                             var selected_body = body;
                             selected = true;
-                            console.log('body', role.name, selected_body, bodyCost);
+                            // console.log('body', role.name, selected_body, bodyCost);
 
                         }
                     
-                        var spawn_result = Game.spawns.Spawn1.createCreep(selected_body, {role:role.name});
+                        var spawn_result = myRoom.find(FIND_MY_SPAWNS)[0].createCreep(selected_body, {role:role.name});
 
                         if (typeof spawn_result == 'string') {
-                            console.log('spawning ' + role.name);
+                            console.log(myRoom.name, 'spawning ' + role.name);
                             spawned = true;
                             break;
                         }

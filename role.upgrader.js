@@ -5,7 +5,7 @@ var role = Object.assign({}, roleBaseWorker);
 
 role.work = function(creep) {
     
-    var cont = funcs.myRoom.controller;
+    var cont = creep.room.controller;
     
     if(creep.upgradeController(cont) == ERR_NOT_IN_RANGE) {
         creep.moveTo(cont);

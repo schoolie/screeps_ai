@@ -5,7 +5,7 @@ var role = Object.assign({}, roleBaseWorker);
 
 role.work = function(creep) {
 	        
-    var allStructures = funcs.myRoom.find(FIND_STRUCTURES)
+    var allStructures = creep.room.find(FIND_STRUCTURES)
 
     var damagedStructures = []
     var walls = []
@@ -60,24 +60,25 @@ role.work = function(creep) {
         }
     }
     
-    if (Memory.last_target_id) {
-        last_target = Game.getObjectById(Memory.last_target_id);
+    if (walls.length | damagedStructures.length) { 
+        if (Memory.last_target_id) {
+            last_target = Game.getObjectById(Memory.last_target_id);
+            
+            // console.log(target.hits, last_target.hits);
+            if (target) { 
+                if (last_target) {
+                    if ((last_target.hits) < (target.hits + 90)) {
+                        // console.log('kept');
+                        target = last_target;
+                    }
+                    else {
+                        // console.log('too close');
+                    }
+                }
+            } 
         
-        // console.log(target.hits, last_target.hits);
-        
-        if (last_target) {
-            if ((last_target.hits) < (target.hits + 90)) {
-                // console.log('kept');
-                target = last_target;
-            }
-            else {
-                // console.log('too close');
-            }
         }
-        
-    
-    }
-    
+    } 
     // console.log(target.id, Memory.last_target_id);
     
     
