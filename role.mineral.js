@@ -25,9 +25,23 @@ role.work = function(creep) {
         }
     });
 
-    if (storages.length > 0) {
-        if(creep.transfer(targets[0], Object.keys(creep.carry)[0]) == ERR_NOT_IN_RANGE) {
-            creep.moveTo(targets[0]);
+    if (targets.length > 0) {
+        var transferType = false;
+
+        carries = Object.keys(creep.carry);
+        for (c in carries) {
+            carryType = carries[c];
+            if (carryType != 'energy') {
+                transferType = carryType;
+            }
+        }
+       
+        console.log(transferType);
+
+        if (transferType) {
+            if(creep.transfer(targets[0], transferType) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(targets[0]);
+            }
         }
     }
 }
@@ -45,6 +59,9 @@ role.shouldSpawn = function(room) {
 
 role.name = 'miner';
 
-role.bodies = [[CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, MOVE, MOVE]]
+role.bodies = [
+    [CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK, MOVE, MOVE],
+    [CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, MOVE, MOVE],
+]
 
 module.exports = role;;
