@@ -1,7 +1,7 @@
-var roleBaseWorker = require('role.baseWorker');
+var roleEnergyWorker = require('role.energyWorker');
 var funcs = require('funcs');
 
-var role = Object.assign({}, roleBaseWorker); 
+var role = Object.assign({}, roleEnergyWorker); 
 
 role.work = function(creep) {
     

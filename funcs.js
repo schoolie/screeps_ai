@@ -1,8 +1,8 @@
 module.exports = {
     
     
-    myRoom: Game.spawns.Spawn1.room,
-    myRoomName: Game.spawns.Spawn1.room.name,
+    // myRoom: Game.spawns.Spawn1.room,
+    // myRoomName: Game.spawns.Spawn1.room.name,
     
     calcCost: function(body) {
         total_cost = 0;

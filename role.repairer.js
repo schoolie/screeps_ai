@@ -1,4 +1,4 @@
-var roleBaseWorker = require('role.baseWorker');
+var roleBaseWorker = require('role.energyWorker');
 var funcs = require('funcs');
 
 var role = Object.assign({}, roleBaseWorker); 
@@ -60,32 +60,32 @@ role.work = function(creep) {
         }
     }
     
-    if (walls.length | damagedStructures.length) { 
-        if (Memory.last_target_id) {
-            last_target = Game.getObjectById(Memory.last_target_id);
-            
-            // console.log(target.hits, last_target.hits);
-            if (target) { 
-                if (last_target) {
-                    if ((last_target.hits) < (target.hits + 90)) {
-                        // console.log('kept');
-                        target = last_target;
-                    }
-                    else {
-                        // console.log('too close');
-                    }
-                }
-            } 
+    //if (walls.length | damagedStructures.length) { 
+       // if (Memory.last_target_id) {
+       //     last_target = Game.getObjectById(Memory.last_target_id);
+       //     
+       //     // console.log(target.hits, last_target.hits);
+       //     if (target) { 
+       //         if (last_target) {
+       //             if ((last_target.hits) < (target.hits + 90)) {
+       //                 // console.log('kept');
+       //                 target = last_target;
+       //             }
+       //             else {
+       //                 // console.log('too close');
+       //             }
+       //         }
+       //     } 
         
-        }
-    } 
+    //    }
+    //} 
     // console.log(target.id, Memory.last_target_id);
     
     
-    Memory.last_target_id = target.id; 
+    // Memory.last_target_id = target.id; 
 
     if(creep.repair(target) == ERR_NOT_IN_RANGE) {
-        creep.moveTo(target, {reusePath: 30, visualizePathStyle: {stroke: '#ffffff'}});
+        creep.moveTo(target, {reusePath: 10, visualizePathStyle: {stroke: '#ffffff'}});
     }
 
 }

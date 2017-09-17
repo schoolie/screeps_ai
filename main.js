@@ -6,31 +6,32 @@ var roleRepairer = require('role.repairer');
 var roleUpgrader = require('role.upgrader');
 var roleObserver = require('role.observer');
 var roleClaimer = require('role.claimer');
-// var roleMiner = require('role.miner');
+var roleMiner = require('role.mineral');
 
 
 
-// roleMiner.max = 0
-roleObserver.max = 0;
-roleHarvester.max = 7;
-roleUpgrader.max = 7;
-roleRepairer.max = 0;
-roleClaimer.max = 0; 
-roleBuilder.max = 5; 
-
-roles = [
-    // roleMiner,
-    roleHarvester,
-    roleUpgrader,
-    roleObserver,
-    roleRepairer,
-    roleClaimer,
-    roleBuilder,
-]
 
 
 module.exports.loop = function () {
 
+    roleObserver.max = 0;
+    roleHarvester.max = 7;
+    roleUpgrader.max = 7;
+    roleRepairer.max = 1;
+    roleClaimer.max = 0; 
+    roleBuilder.max = 5; 
+    roleMiner.max = 3;
+    
+    var roles = [
+        roleHarvester,
+        roleUpgrader,
+        roleObserver,
+        roleRepairer,
+        roleClaimer,
+        roleBuilder,
+        roleMiner,
+    ]
+    
     var myRooms = []
     for (s in Game.spawns) {
         var room = Game.spawns[s].room;
@@ -60,15 +61,25 @@ module.exports.loop = function () {
         }
         
         // Status Console Message
-        console.log(myRoom.name,
-            myRoom.energyAvailable,
-            myRoom.energyCapacityAvailable,
-            roles.map(function(x) {return ' ' + x.name + ': ' + x.count(myRoom) + '/' + x.max})
-        );
+        if (Memory.statusCount == 5) {
+            console.log(myRoom.name,
+                myRoom.energyAvailable,
+                myRoom.energyCapacityAvailable,
+                roles.map(function(x) {return ' ' + x.name + ': ' + x.count(myRoom) + '/' + x.max})
+            );
+                
+            Memory.statusCount = 0;
+        }
+        Memory.statusCount += 1;
+        
 
         // Spawn Management    
         var spawned = false;
         var selected = false;
+        
+        if (roleHarvester.count == 0) {
+            myRoom.find(FIND_MY_SPAWNS)[0].createCreep([WORK,CARRY,MOVE], {role:'harvester'});
+        }
 
         for (var r in roles) {
             

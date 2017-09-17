@@ -1,4 +1,4 @@
-var roleBaseWorker = require('role.baseWorker');
+var roleBaseWorker = require('role.energyWorker');
 var funcs = require('funcs');
 
 var role = Object.assign({}, roleBaseWorker); 
