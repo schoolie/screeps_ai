@@ -11,19 +11,35 @@ role.work = function(creep) {
     if(targets.length) {
         
         var minDiff = 99999999;
-
+        
         for (var t in targets){
             var target = targets[t];
             var diff = target.progressTotal - target.progress;
             
             if (diff < minDiff){
-                var smallestTarget = target;
+                smallestTargets = [target];
                 minDiff = diff;
             }
+            else if (diff == minDiff) {
+                smallestTargets.push(target);
+            }
         }
+        
+        var minDist = 9999999;
 
-        if(creep.build(smallestTarget) == ERR_NOT_IN_RANGE) {
-            creep.moveTo(smallestTarget, {visualizePathStyle: {stroke: '#ffffff'}});
+        for (var t in smallestTargets) {
+            target = smallestTargets[t];
+            dist = creep.pos.getRangeTo(target.pos);
+            console.log(target.pos, dist);
+
+            if (dist < minDist) {
+                minDist = dist;
+                nearestTarget = target;
+            }
+        }
+        
+        if(creep.build(nearestTarget) == ERR_NOT_IN_RANGE) {
+            creep.moveTo(nearestTarget, {visualizePathStyle: {stroke: '#ffffff'}});
         }
     }
     
