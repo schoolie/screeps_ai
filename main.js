@@ -9,7 +9,7 @@ var roleClaimer = require('role.claimer');
 var roleMiner = require('role.mineral');
 
 
-
+var statusCounter = 10;
 
 
 module.exports.loop = function () {
@@ -40,6 +40,8 @@ module.exports.loop = function () {
         }
     }
 
+    Memory.statusCount +=1
+
     for (r in myRooms) {
         // Get Current Room
         var myRoom = myRooms[r];
@@ -61,16 +63,13 @@ module.exports.loop = function () {
         }
         
         // Status Console Message
-        if (Memory.statusCount == 5) {
+        if (Memory.statusCount == statusCounter) {
             console.log(myRoom.name,
                 myRoom.energyAvailable,
                 myRoom.energyCapacityAvailable,
                 roles.map(function(x) {return ' ' + x.name + ': ' + x.count(myRoom) + '/' + x.max})
             );
-                
-            Memory.statusCount = 0;
         }
-        Memory.statusCount += 1;
         
 
         // Spawn Management    
@@ -117,6 +116,12 @@ module.exports.loop = function () {
         }
 
     }
+
+
+    if (Memory.statusCount == statusCounter) {
+        Memory.statusCount = 0;
+    }
+
     // Role Actions
     for(var name in Game.creeps) {
         

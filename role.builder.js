@@ -28,7 +28,12 @@ role.work = function(creep) {
     }
     
     else {
-        creep.memory.role = 'upgrader';
+        if (creep.memory.altRole) {
+            creep.memory.role = creep.memory.altRole;
+        }
+        else {
+            creep.memory.role = 'upgrader';
+        }
     }
 }
 
