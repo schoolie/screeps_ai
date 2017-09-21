@@ -1,5 +1,6 @@
 var roleBaseWorker = require('role.energyWorker');
 var funcs = require('funcs');
+var roleUpgrader = require('role.upgrader');
 
 var role = Object.assign({}, roleBaseWorker); 
 
@@ -10,6 +11,7 @@ role.work = function(creep) {
     var damagedStructures = []
     var walls = []
     
+    var target = undefined;
 
     for (var n in allStructures) {
         structure = allStructures[n];
@@ -83,9 +85,13 @@ role.work = function(creep) {
     
     
     // Memory.last_target_id = target.id; 
-
-    if(creep.repair(target) == ERR_NOT_IN_RANGE) {
-        creep.moveTo(target, {reusePath: 10, visualizePathStyle: {stroke: '#ffffff'}});
+    if (target) {
+        if(creep.repair(target) == ERR_NOT_IN_RANGE) {
+            creep.moveTo(target, {reusePath: 10, visualizePathStyle: {stroke: '#ffffff'}});
+        }
+    }
+    else {
+        roleUpgrader.run(creep);
     }
 
 }
