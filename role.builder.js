@@ -1,55 +1,64 @@
 var roleBaseWorker = require('role.energyWorker');
 var funcs = require('funcs');
+var roleUpgrader = require('role.upgrader');
 
 var role = Object.assign({}, roleBaseWorker); 
 
 role.work = function(creep) {
 
-	        
-    var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
-    
-    if(targets.length) {
-        
-        var minDiff = 99999999;
-        
-        for (var t in targets){
-            var target = targets[t];
-            var diff = target.progressTotal - target.progress;
-            
-            if (diff < minDiff){
-                smallestTargets = [target];
-                minDiff = diff;
-            }
-            else if (diff == minDiff) {
-                smallestTargets.push(target);
-            }
-        }
-        
-        var minDist = 9999999;
+    var target = undefined;
 
-        for (var t in smallestTargets) {
-            target = smallestTargets[t];
-            dist = creep.pos.getRangeTo(target.pos);
-            console.log(target.pos, dist);
-
-            if (dist < minDist) {
-                minDist = dist;
-                nearestTarget = target;
+    if (creep.memory.targetId) {
+        checkTarget = Game.getObjectById(creep.memory.targetId);
+        if (checkTarget != undefined) {
+            if (checkTarget.progressMax - checkTarget.progress > 0) {
+                target = checkTarget;
             }
-        }
-        
-        if(creep.build(nearestTarget) == ERR_NOT_IN_RANGE) {
-            creep.moveTo(nearestTarget, {visualizePathStyle: {stroke: '#ffffff'}});
         }
     }
     
+    if (target == undefined) {
+        var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
+        
+        if(targets.length) {
+            
+            var minDiff = 99999999;
+            
+            for (var t in targets){
+                var target = targets[t];
+                var diff = target.progressTotal - target.progress; 
+                
+                if (diff < minDiff){
+                    smallestTargets = [target];
+                    minDiff = diff;
+                }
+                else if (diff == minDiff) {
+                    smallestTargets.push(target);
+                }
+            }
+            
+            var minDist = 9999999;
+
+            for (var t in smallestTargets) {
+                checkTarget = smallestTargets[t];
+                dist = creep.pos.getRangeTo(checkTarget.pos);
+                // console.log(target.pos, dist);
+
+                if (dist < minDist) {
+                    minDist = dist;
+                    target = checkTarget;
+                }
+            }
+        }
+    }
+    if (target) {
+        creep.memory.targetId = target.id;
+        if(creep.build(target) == ERR_NOT_IN_RANGE) {
+            creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
+        }
+    }
     else {
-        if (creep.memory.altRole) {
-            creep.memory.role = creep.memory.altRole;
-        }
-        else {
-            creep.memory.role = 'upgrader';
-        }
+        roleUpgrader.run(creep);
     }
 }
 

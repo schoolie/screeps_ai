@@ -1,5 +1,6 @@
 var roleEnergyWorker = require('role.energyWorker');
 var funcs = require('funcs');
+var roleBuilder = require('role.builder');
 
 var role = Object.assign({}, roleEnergyWorker); 
 
@@ -18,8 +19,7 @@ role.work = function(creep) {
         }
     }
     else {
-        creep.memory.altRole = 'harvester';
-        creep.memory.role = 'builder';
+        roleBuilder.run(creep);
     }
     
 }

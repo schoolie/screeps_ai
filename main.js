@@ -15,11 +15,11 @@ var statusCounter = 10;
 module.exports.loop = function () {
 
     roleObserver.max = 0;
-    roleHarvester.max = 7;
-    roleUpgrader.max = 7;
+    roleHarvester.max = 5;
+    roleUpgrader.max = 5;
     roleRepairer.max = 1;
     roleClaimer.max = 0; 
-    roleBuilder.max = 5; 
+    roleBuilder.max = 4; 
     roleMiner.max = 3;
     
     var roles = [
@@ -106,7 +106,7 @@ module.exports.loop = function () {
                         var spawn_result = myRoom.find(FIND_MY_SPAWNS)[0].createCreep(selected_body, {role:role.name});
 
                         if (typeof spawn_result == 'string') {
-                            console.log(myRoom.name, 'spawning ' + role.name);
+                            console.log(myRoom.name, 'spawning ' + role.name, selected_body);
                             spawned = true;
                             break;
                         }

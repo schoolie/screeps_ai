@@ -5,87 +5,56 @@ var roleUpgrader = require('role.upgrader');
 var role = Object.assign({}, roleBaseWorker); 
 
 role.work = function(creep) {
-	        
-    var allStructures = creep.room.find(FIND_STRUCTURES)
-
-    var damagedStructures = []
-    var walls = []
-    
+	
     var target = undefined;
+    var repDiff = 90;
 
-    for (var n in allStructures) {
-        structure = allStructures[n];
 
-        if (structure.hits < structure.hitsMax) {
-            if (structure.structureType == 'constructedWall') {
-                walls.push(structure);
-            }
-            else {
-                damagedStructures.push(structure);
-            }
+    if (creep.memory.targetId) {
+        checkTarget = Game.getObjectById(creep.memory.targetId);
+        if (checkTarget.hitsMax - checkTarget.hits > repDiff) {
+            target = checkTarget;
         }
     }
 
-    if(damagedStructures.length) {
-        // console.log('damaged: ', damagedStructures.length);
+    if (target == undefined) {    
+        var allStructures = creep.room.find(FIND_STRUCTURES)
 
-        max_struct = 0;
+        var damagedStructures = []
+        var roads = []
+        
 
-        for (w in damagedStructures) {
-            struct = damagedStructures[w];
-            if ((struct.hitsMax - struct.hits) > max_struct) {
-                max_struct = struct.hitsMax - struct.hits;
-                if (max_struct > 100) {
-                    target = struct;
+        for (var n in allStructures) {
+            structure = allStructures[n];
+
+            if (structure.hits < structure.hitsMax) {
+                if (structure.structureType == STRUCTURE_ROAD) {
+                    roads.push(structure);
                 }
                 else {
-                    target = false;
+                    damagedStructures.push(structure);
                 }
             }
         }
-        
-    }
-    
-    // console.log(target);
-    
-    if (walls.length && !target) {
-        
-        // console.log('walls: ', walls.length);
-        min_wall = 9999999;
 
-        for (w in walls) {
-            wall = walls[w];
-            if (wall.hits < min_wall) {
-                target = wall;
-                min_wall = wall.hits;
+        if (roads.length) {
+            
+            min_road = 9999999;
+
+            for (r in roads) {
+                road = roads[r];
+                if (road.hits < min_road && road.hitsMax - road.hits > repDiff) {
+                    target = road;
+                    min_road = road.hits;
+                }
             }
+            // console.log(creep.memory.targetId);
         }
     }
-    
-    //if (walls.length | damagedStructures.length) { 
-       // if (Memory.last_target_id) {
-       //     last_target = Game.getObjectById(Memory.last_target_id);
-       //     
-       //     // console.log(target.hits, last_target.hits);
-       //     if (target) { 
-       //         if (last_target) {
-       //             if ((last_target.hits) < (target.hits + 90)) {
-       //                 // console.log('kept');
-       //                 target = last_target;
-       //             }
-       //             else {
-       //                 // console.log('too close');
-       //             }
-       //         }
-       //     } 
-        
-    //    }
-    //} 
-    // console.log(target.id, Memory.last_target_id);
-    
     
     // Memory.last_target_id = target.id; 
     if (target) {
+        creep.memory.targetId = target.id;
         if(creep.repair(target) == ERR_NOT_IN_RANGE) {
             creep.moveTo(target, {reusePath: 10, visualizePathStyle: {stroke: '#ffffff'}});
         }
