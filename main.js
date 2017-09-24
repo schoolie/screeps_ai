@@ -14,11 +14,11 @@ var statusCounter = 10;
 
 module.exports.loop = function () {
 
-    roleObserver.max = 0;
+    roleObserver.max = 1;
     roleHarvester.max = 5;
     roleUpgrader.max = 5;
     roleRepairer.max = 1;
-    roleClaimer.max = 0; 
+    roleClaimer.max = 1; 
     roleBuilder.max = 4; 
     roleMiner.max = 3;
     
